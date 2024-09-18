@@ -1,43 +1,88 @@
 #include <stdio.h>
 
-// Desafio Super Trunfo - Países
-// Tema 2 - Comparação das Cartas
-// Este código inicial serve como base para o desenvolvimento do sistema de comparação de cartas de cidades. 
-// Siga os comentários para implementar cada parte do desafio.
+typedef struct
+{
+    char estado;
+    char *cidade;
+    int codigo;
+    int populacao;
+    float area;
+    float pib;
+    int pontos_turisticos;
+} Carta;
 
-int main() {
-    // Definição das variáveis para armazenar as propriedades das cidades
-    // Você pode utilizar o código do primeiro desafio
+int main()
+{
+    int opcao, totalcartas = 0;
+    Carta cartas[2];
 
-    
-    // Cadastro das Cartas:
-    // Implemente a lógica para solicitar ao usuário que insira os dados das cidades
-    // utilizando a função scanf para capturar as entradas.
-    // utilize o código do primeiro desafio
+    // inicio de jogo
+    while (opcao < 3)
+    {
+        printf("Menu Principal\n");
+        printf("1. Cadastrar carta\n");
+        printf("2. Ver Resultado\n");
+        printf("3. Sair\n");
+        printf("Escolha uma opção: ");
+        scanf("%d", &opcao);
 
-    // Exemplo:
-    // printf("Digite o código da cidade: ");
-    // scanf("%s", codigo);
-    // 
-    // (Repita para cada propriedade)
+        switch (opcao)
+        {
 
-    // Comparação de Cartas:
-    // Desenvolva a lógica de comparação entre duas cartas.
-    // Utilize estruturas de decisão como if, if-else para comparar atributos como população, área, PIB, etc.
+        case 1: // Cadastrar carta
 
-    // Exemplo:
-    // if (populacaoA > populacaoB) {
-    //     printf("Cidade 1 tem maior população.\n");
-    // } else {
-    //     printf("Cidade 2 tem maior população.\n");
-    // }
+            if (totalcartas == 2)
+            {
+                printf("\n Você já cadastrou o máximo de cartas permitido! \n");
+                break;
+            }
 
-    // Exibição dos Resultados:
-    // Após realizar as comparações, exiba os resultados para o usuário.
-    // Certifique-se de que o sistema mostre claramente qual carta venceu e com base em qual atributo.
+            Carta carta;
 
-    // Exemplo:
-    // printf("A cidade vencedora é: %s\n", cidadeVencedora);
+            printf("Digite a cidade: ");
+            scanf(" %[^\n]s", &carta.cidade);
+
+            printf("Digite a população: ");
+            scanf("%d", &carta.populacao);
+
+            cartas[totalcartas] = carta;
+
+            totalcartas++;
+            break;
+        case 2: // Ver Resultado
+
+            if (totalcartas < 2)
+            {
+                printf("\n Você não cadastrou todas as cartas! \n\n ");
+                break;
+            }
+
+            int populacaoA = cartas[0].populacao;
+            int populacaoB = cartas[1].populacao;
+
+            if (populacaoA == populacaoB)
+            {
+                printf("Empate!");
+            }
+            else
+            {
+                char *cidadeVencedora = (populacaoA > populacaoB) ? cartas[0].cidade : cartas[1].cidade;
+
+                printf("\n %s tem maior população. \n ", &cidadeVencedora);
+                printf("A cidade vencedora é: %s \n", &cidadeVencedora);
+            }
+
+            break;
+        case 3:
+            printf("Saindo...\n");
+            break;
+        default:
+            opcao = 0;
+            printf("Opção inválida. Tente novamente.\n");
+        }
+    }
+
+    // fim de jogo
 
     return 0;
 }
